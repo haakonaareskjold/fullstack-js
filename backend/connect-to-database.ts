@@ -1,6 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
 
-
 let cachedDb = null;
 
 export default async function connectToDatabase() {
