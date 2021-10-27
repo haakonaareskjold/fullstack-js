@@ -2,23 +2,25 @@ import express from "express";
 import connectToDatabase from "./connect-to-database";
 
 const app = express();
+const cors = require('cors');
 app.use(express.json());
+app.use(cors());
 
-app.get('/api/messages', async (request, response) => {
+app.get('/messages', async (request, response) => {
     
     const db = await connectToDatabase();
 
     const messages = await db.collection('messages').find({}).toArray();
 
-    response.json({messages});
+    response.json({ messages });
 })
 
-app.post('/api/messages', async (request, response) => {
+app.post('/messages', async (request, response) => {
     const db = await connectToDatabase();
     await db.collection('messages').insertOne({
         text: request.body.text
     });
-    
+
     return response.send(201);
 })
 
