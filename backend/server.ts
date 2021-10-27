@@ -17,9 +17,11 @@ app.get('/messages', async (request, response) => {
 
 app.post('/messages', async (request, response) => {
     const db = await connectToDatabase();
-    await db.collection('messages').insertOne({
+    const message = await db.collection('messages').insertOne({
         text: request.body.text
     });
+
+    response.json({message})
 
     return response.send(201);
 })
